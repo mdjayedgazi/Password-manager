@@ -1,21 +1,26 @@
-# 🔐 Password Manager
+# 🔐 Password Manager (Tkinter + Python)
 
-A simple desktop app built with Python and Tkinter.
-
-## 🚀 Features
+A simple desktop GUI password manager built with Python and Tkinter. This app allows you to:
 - Generate secure passwords
-- Copy to clipboard
-- Save website credentials
-- Local storage in plain text
+- Copy them to your clipboard
+- Save credentials (Website, Email/Username, Password) to a local text file
 
-## 🖥️ Download
-👉 [Download Windows .exe](https://github.com/mdjayed/password-manager-start/releases)
+## 📸 Screenshot
+> *(Add a screenshot here if you'd like)*
 
+## 🧰 Features
 
-> ⚠️ For learning/demo only. Do not use for real password storage without encryption.
+✅ Random password generator  
+✅ Clipboard copy support using `pyperclip`  
+✅ Entry field validation  
+✅ Confirmation dialog before saving  
+✅ Saved passwords are stored in a text file (`passwords.txt`)  
+✅ Responsive UI using grid layout
 
-## 📷 Screenshot
-*(Add screenshot if needed)*
+## 🚀 Getting Started
 
-## 📄 License
-MIT License
+### Prerequisites
+Make sure you have Python installed. You also need the following Python package:
+
+```bash
+pip install pyperclip
