@@ -9,7 +9,8 @@ A simple desktop app built with Python and Tkinter.
 - Local storage in plain text
 
 ## 🖥️ Download
-👉 [Download Windows .exe](https://github.com/YOUR_USERNAME/password-manager/releases)
+👉 [Download Windows .exe](https://github.com/mdjayed/password-manager-start/releases)
+
 
 > ⚠️ For learning/demo only. Do not use for real password storage without encryption.
 
