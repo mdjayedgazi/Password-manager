@@ -63,7 +63,8 @@ def Add():
                 messagebox.showerror(title="Save Error", message=f"Something went wrong!\n\n{e}")
             else:
                 messagebox.showinfo(title="Success", message="Password saved successfully!")
-            # remove all text 
+            finally:
+                # remove all text 
                 web_entry.delete(0,END)
                 pass_entry.delete(0,END)
     # # ---------------------------- UI SETUP ------------------------------- #
