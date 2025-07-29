@@ -2,6 +2,7 @@ from tkinter import*
 from tkinter import messagebox
 import random
 import pyperclip
+import json
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def password_generator():
@@ -27,23 +28,45 @@ def password_generator():
     try:
         pyperclip.copy(password)
     except pyperclip.PyperclipException:
+        print("Password is still in the box — copy manually.")
         messagebox.showwarning(title="Clipboard Error", message="Could not copy password to clipboard.")
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def Add():
-    websites = web_entry.get()
+    website = web_entry.get()
     email = email_user_entry.get()
     password = pass_entry.get()
-    if not websites or not password:
+    new_data = {
+        website : {
+            "email" : email,
+            "password" : password,
+        }
+    }
+    if not website or not password:
         messagebox.showinfo(title="Oops",message="Please make sure you haven't left any fields empty!")
     else:
-        is_ok = messagebox.askokcancel(title=websites,message=f"These are the details entered: \nEmail: {email}\nPassword: {password}\n Is it ok to save?")
+        is_ok = messagebox.askokcancel(title=website,message=f"These are the details entered: \nEmail: {email}\nPassword: {password}\n Is it ok to save?")
         if is_ok:
-            with open ("Password Data.txt", "a") as pas:
-                pas.write(f"{websites} | {email} | {password} \n")
-            # remove all text 
-            web_entry.delete(0,END)
-            pass_entry.delete(0,END)
+            try:
+                with open ("Password Data.json", "r") as pas:
+                  #Reading old data
+                    data = json.load(pas)
+            except (FileNotFoundError, json.JSONDecodeError):
+                data = {}
+                #Updating old data with new data
+            data.update(new_data)
+            try:
+                with open("Password Data.json","w") as pas:
+                #Saving updated data
+                    json.dump(data,pas,indent=4)
+            except Exception as e:
+                messagebox.showerror(title="Save Error", message=f"Something went wrong!\n\n{e}")
+            else:
+                messagebox.showinfo(title="Success", message="Password saved successfully!")
+            finally:
+                # remove all text 
+                web_entry.delete(0,END)
+                pass_entry.delete(0,END)
     # # ---------------------------- UI SETUP ------------------------------- #
 root = Tk()
 root.title("Password Manager")
@@ -56,8 +79,8 @@ canvas = Canvas(height=200,width=200,highlightthickness=0)
 canvas.create_image(100,100,image=loc_img)
 canvas.grid(row=0,column=0,columnspan=3)
 # Website
-website = Label(text="Website:")
-website.grid(column=0,row=1,pady=5,sticky='e')
+website_label = Label(text="Website:")
+website_label.grid(column=0,row=1,pady=5,sticky='e')
 web_entry = Entry(width=36,font=("Helvetica",12,"normal"))
 web_entry.focus()
 web_entry.grid(column=1,row=1,columnspan=2,sticky="ew",pady=5,ipady=2)
@@ -74,7 +97,6 @@ pass_entry = Entry(width=36,font=("Helvetica",12,"normal"))
 pass_entry.grid(row=3,column=1,sticky="w",pady=5,ipady=2)
 generate_pss = Button(text="Generate Password",command=password_generator)
 generate_pss.grid(row=3,column=2,pady=5,sticky="e")
-
 # Add Button
 add = Button(text="Add",width=36,command=Add)
 add.grid(row=4,column=1,columnspan=2,pady=5,sticky="ew",ipady=2)
