@@ -97,7 +97,6 @@ pass_entry = Entry(width=36,font=("Helvetica",12,"normal"))
 pass_entry.grid(row=3,column=1,sticky="w",pady=5,ipady=2)
 generate_pss = Button(text="Generate Password",command=password_generator)
 generate_pss.grid(row=3,column=2,pady=5,sticky="e")
-
 # Add Button
 add = Button(text="Add",width=36,command=Add)
 add.grid(row=4,column=1,columnspan=2,pady=5,sticky="ew",ipady=2)
