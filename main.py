@@ -31,7 +31,7 @@ def password_generator():
         messagebox.showwarning(title="Clipboard Error", message="Could not copy password to clipboard.")
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def Add():
-    website = web_entry.get()
+    website = web_entry.get().lower()
     email = email_user_entry.get()
     password = pass_entry.get()
     new_data = {
@@ -67,7 +67,7 @@ def Add():
                 pass_entry.delete(0,END)
 # ----------------------------------- FIND PASSWORD -----------------------------#
 def find_password():
-    website = web_entry.get()
+    website = web_entry.get().lower()
     try:
         with open("Password Data.json") as data_file:
             data = json.load(data_file)
